@@ -6,22 +6,32 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="loginContext" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.chatapp.controller.ClientLoginFormController">
+<AnchorPane fx:id="loginContext" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.chatapp.controller.ClientLoginFormController">
    <children>
-      <Text fill="#101ce5" layoutX="115.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome To Play Tech Live Chat" wrappingWidth="369.7294921875">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Text>
-      <TextField fx:id="txtUsername" layoutX="157.0" layoutY="283.0" prefHeight="40.0" prefWidth="184.0" promptText="User Name">
+      <Pane layoutX="12.0" layoutY="14.0" prefHeight="372.0" prefWidth="575.0" style="-fx-background-color: #F6F6F6;">
+         <children>
+            <Text layoutX="86.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hey,Lets Chat With Team Mates" wrappingWidth="417.7294921875">
+               <font>
+                  <Font name="System Bold" size="23.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="115.0" fitWidth="134.0" layoutX="221.0" layoutY="119.0" pickOnBounds="true">
+               <image>
+                  <Image url="@assets/img/login-user.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <TextField fx:id="txtUsername" layoutX="175.0" layoutY="291.0" prefHeight="40.0" prefWidth="184.0" promptText="User Name">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <Button layoutX="350.0" layoutY="283.0" mnemonicParsing="false" onAction="#loginBtnOnAction" prefHeight="40.0" style="-fx-background-color: blue;" text="Login" textFill="WHITE">
+      <Button layoutX="368.0" layoutY="291.0" mnemonicParsing="false" onAction="#loginBtnOnAction" prefHeight="40.0" style="-fx-background-color: black;" text="Login" textFill="WHITE">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
@@ -29,10 +39,5 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="209.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@assets/img/blank-profile-pic.png" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>

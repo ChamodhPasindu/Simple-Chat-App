@@ -2,6 +2,7 @@ package lk.ijse.chatapp.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -16,10 +17,18 @@ public class ClientLoginFormController {
     public void loginBtnOnAction(ActionEvent actionEvent) throws IOException {
         String username=txtUsername.getText();
 
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("../view/clientAppForm.fxml"));
+        Parent parent=loader.load();
+        ClientAppFormController controller = loader.<ClientAppFormController>getController();
+        controller.txtUsername.setText(username);
+        Stage window= (Stage) loginContext.getScene().getWindow();
+        window.setScene(new Scene(parent));
+/*
         switch (username) {
             case "chamodh":
-                Stage window= (Stage) loginContext.getScene().getWindow();
-                window.setScene(new Scene(FXMLLoader.load(getClass().getResource("../view/clientAppForm.fxml"))));
+                parent parent=FXMLLoader.load(getClass().getResource("")
+
+
                 break;
             case "pasindu":
                 System.out.println("pasindu");
@@ -30,6 +39,6 @@ public class ClientLoginFormController {
             default:
                 System.out.println("wrong");
                 break;
-        }
+        }*/
     }
 }
