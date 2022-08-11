@@ -7,13 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
 
 public class ClientLoginFormController {
     public TextField txtUsername;
@@ -24,7 +19,6 @@ public class ClientLoginFormController {
     }
 
     public void loginBtnOnAction(ActionEvent actionEvent) throws IOException {
-        String username=txtUsername.getText();
 
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("../view/ClientAppForm.fxml"));
         Parent parent=loader.load();

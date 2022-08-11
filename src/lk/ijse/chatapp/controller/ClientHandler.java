@@ -21,7 +21,7 @@ public class ClientHandler implements Runnable {
             this.bufferedReader=new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.clientUsername=bufferedReader.readLine();
             clientHandlers.add(this);
-            broadCastMessage( clientUsername.toUpperCase(Locale.ROOT)+" HAS ENTERED CHAT");
+            broadCastMessage("\t\t\t"+ clientUsername.toUpperCase(Locale.ROOT)+" HAS ENTERED CHAT\t\t\t");
         } catch (IOException e) {
             e.printStackTrace();
             closeEveryThing(socket,bufferedReader,bufferedWriter);
@@ -45,9 +45,11 @@ public class ClientHandler implements Runnable {
     public void broadCastMessage(String messageToSend){
         for (ClientHandler clientHandler:clientHandlers){
             try{
+                if (!clientHandler.clientUsername.equals(clientUsername)){
                     clientHandler.bufferedWriter.write(messageToSend);
                     clientHandler.bufferedWriter.newLine();
                     clientHandler.bufferedWriter.flush();
+                }
             } catch (IOException e) {
                 closeEveryThing(socket,bufferedReader,bufferedWriter);
             }
@@ -56,7 +58,7 @@ public class ClientHandler implements Runnable {
 
     public void removeClientHandler(){
         clientHandlers.remove(this);
-        broadCastMessage("server "+clientUsername+" has left the chat");
+        broadCastMessage("\t\t\t"+clientUsername.toUpperCase(Locale.ROOT)+" HAS LEFT THE CHAT\t\t\t");
     }
 
     public void closeEveryThing(Socket socket,BufferedReader bufferedReader,BufferedWriter bufferedWriter){

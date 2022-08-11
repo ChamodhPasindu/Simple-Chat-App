@@ -25,7 +25,6 @@ public class Client {
         try {
             bufferedWriter.write(message);
             bufferedWriter.newLine();
-            bufferedWriter.newLine();
             bufferedWriter.flush();
         } catch (IOException e) {
             e.printStackTrace();
