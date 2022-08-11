@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -38,8 +39,8 @@
       </Pane>
       <Pane layoutY="595.0" prefHeight="53.0" prefWidth="514.0" style="-fx-background-color: black;">
          <children>
-            <TextField fx:id="txtMessageArea" focusTraversable="false" layoutX="56.0" layoutY="9.0" prefHeight="35.0" prefWidth="408.0" promptText=" Type a message" style="-fx-background-color: #fff6f6;" />
-            <Button layoutX="466.0" layoutY="8.0" mnemonicParsing="false" onAction="#sendMessageOnAction" prefHeight="35.0" prefWidth="42.0" style="-fx-background-color: black;">
+            <TextField fx:id="txtMessageArea" focusTraversable="false" layoutX="56.0" layoutY="9.0" onKeyPressed="#sendMessageOnKey" prefHeight="35.0" prefWidth="408.0" promptText=" Type a message" style="-fx-background-color: #fff6f6;" />
+            <Button layoutX="466.0" layoutY="8.0" mnemonicParsing="false" onMouseClicked="#sendMessageOnMouse" prefHeight="35.0" prefWidth="42.0" style="-fx-background-color: black;">
                <graphic>
                   <FontAwesomeIconView fill="#fff6f6" glyphName="SEND" size="22" text="" wrappingWidth="25.0" />
                </graphic>
@@ -57,13 +58,18 @@
             </Button>
          </children>
       </Pane>
-      <Pane fx:id="messageAreaContext" layoutY="53.0" prefHeight="542.0" prefWidth="514.0" style="-fx-background-color: #515151;">
+      <Pane fx:id="messageAreaContext" layoutY="53.0" prefHeight="542.0" prefWidth="514.0" style="-fx-background-color: #3a3a3a;">
          <children>
             <ImageView fitHeight="540.0" fitWidth="514.0" layoutY="1.0" pickOnBounds="true">
                <image>
                   <Image url="@assets/img/background.jpg" />
                </image>
             </ImageView>
+            <JFXTextArea fx:id="txtArea" editable="false" focusColor="BLACK" layoutX="17.0" layoutY="13.0" prefHeight="512.0" prefWidth="492.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="&#10;" unFocusColor="#111111" wrapText="true">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXTextArea>
          </children></Pane>
    </children>
 </AnchorPane>
