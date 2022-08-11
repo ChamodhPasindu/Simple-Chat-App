@@ -65,9 +65,9 @@
             <Image url="@assets/img/background.jpg" />
          </image>
       </ImageView>
-      <ScrollPane fx:id="scrollPane" layoutX="16.0" layoutY="55.0" prefHeight="526.0" prefWidth="482.0" style="-fx-background:trasnparent;">
+      <ScrollPane fx:id="scrollPane" layoutX="16.0" layoutY="55.0" prefHeight="526.0" prefWidth="482.0" style="-fx-background:trasnparent;" >
          <content>
-            <VBox fx:id="vboxMessage" prefHeight="511.0" prefWidth="475.0" spacing="5.0" style="-fx-background-color:trasparent;">
+            <VBox fx:id="vboxMessage" prefHeight="511.0" prefWidth="475.0" spacing="5.0" style="-fx-background-color:trasparent; ">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>

@@ -1,0 +1,14 @@
+
+.scroll-bar:vertical{
+    -fx-background-color:transparent;
+    -fx-pref-width: 10px;
+}
+
+.increment-button, .decrement-button {
+    -fx-padding: 0 0 0 0;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #333333;
+    -fx-background-radius: 5em;
+}

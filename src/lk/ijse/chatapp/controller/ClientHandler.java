@@ -21,7 +21,7 @@ public class ClientHandler implements Runnable {
             this.bufferedReader=new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.clientUsername=bufferedReader.readLine();
             clientHandlers.add(this);
-            broadCastMessage("\t\t\t"+ clientUsername.toUpperCase(Locale.ROOT)+" HAS ENTERED CHAT\t\t\t");
+            broadCastMessage(clientUsername.toUpperCase(Locale.ROOT)+" HAS ENTERED CHAT");
         } catch (IOException e) {
             e.printStackTrace();
             closeEveryThing(socket,bufferedReader,bufferedWriter);
@@ -58,7 +58,7 @@ public class ClientHandler implements Runnable {
 
     public void removeClientHandler(){
         clientHandlers.remove(this);
-        broadCastMessage("\t\t\t"+clientUsername.toUpperCase(Locale.ROOT)+" HAS LEFT THE CHAT\t\t\t");
+        broadCastMessage(clientUsername.toUpperCase(Locale.ROOT)+" HAS LEFT THE CHAT");
     }
 
     public void closeEveryThing(Socket socket,BufferedReader bufferedReader,BufferedWriter bufferedWriter){

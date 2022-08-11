@@ -21,6 +21,8 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Locale;
+import java.util.regex.Pattern;
 
 public class ClientAppFormController {
     public TextField txtMessageArea;
@@ -43,6 +45,7 @@ public class ClientAppFormController {
     public void initialize(String username) throws IOException {
 
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.getStylesheets().add(this.getClass().getResource("../view/assets/style/style.css").toExternalForm());
 
         this.username = username;
         txtUsername.setText(username);
@@ -63,7 +66,6 @@ public class ClientAppFormController {
                 try {
                     msgFromGroupChat = bufferedReader.readLine();
                     String message = msgFromGroupChat;
-                    System.out.println(message);
                     setMsgToTextArea(message);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -73,21 +75,42 @@ public class ClientAppFormController {
     }
 
     private void setMsgToTextArea(String message) {
-
         HBox hBox = new HBox();
-        hBox.setAlignment(Pos.CENTER_LEFT);
         hBox.setPadding(new Insets(1, 5, 1, 10));
+        Text text ;
+        TextFlow textFlow;
+        if (!message.contains(":")){
+            hBox.setAlignment(Pos.CENTER);
+             text = new Text(message);
+             text.setStyle( "-fx-font-weight: bold;-fx-font-size: 10px");
+            text.setFill(Color.color(0.934, 0.945, 0.996));
+            textFlow = new TextFlow(text);
 
-        Text text = new Text(message);
-        TextFlow textFlow = new TextFlow(text);
 
-        textFlow.setStyle("-fx-background-radius: 20px;" +
+
+        }else {
+            hBox.setAlignment(Pos.CENTER_LEFT);
+            String[]parts=message.split(":");
+            String name=parts[0];
+            String msg=parts[1];
+
+            Text text1 = new Text(name);
+            text1.setStyle("-fx-font-size: 12px;-fx-font-weight: bold");
+            Text text2 = new Text("\n"+msg);
+
+            text1.setFill(Color.color(0.57, 0.66, 0.239));
+            text2.setFill(Color.color(0.934, 0.945, 0.996));
+
+            textFlow = new TextFlow(text1,text2);
+
+        }
+
+        textFlow.setStyle("-fx-background-radius: 12px;" +
                 "-fx-background-color: #424242;" +
-                "-fx-font-size: 15px");
+                "-fx-font-size: 15px;" +
+                "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
 
-        textFlow.setPadding(new Insets(5, 10, 5, 10));
-        text.setFill(Color.color(0.934, 0.945, 0.996));
-
+        textFlow.setPadding(new Insets(8, 10, 8, 8));
         hBox.getChildren().add(textFlow);
         Platform.runLater(() -> vboxMessage.getChildren().add(hBox));
 
@@ -107,7 +130,7 @@ public class ClientAppFormController {
         String message = txtMessageArea.getText().trim();
         if (!message.isEmpty()) {
 
-            client.sendMessage(txtUsername.getText()+" : \n"+message);
+            client.sendMessage(txtUsername.getText()+":"+message);
 
             HBox hBox = new HBox();
             hBox.setAlignment(Pos.CENTER_RIGHT);
@@ -116,7 +139,7 @@ public class ClientAppFormController {
             Text text = new Text(message);
             TextFlow textFlow = new TextFlow(text);
 
-            textFlow.setStyle("-fx-background-radius: 20px;" +
+            textFlow.setStyle("-fx-background-radius: 12px;" +
                     "-fx-background-color: #000e5e;" +
                     "-fx-font-size: 15px");
 
@@ -128,9 +151,6 @@ public class ClientAppFormController {
 
             txtMessageArea.clear();
 
-
-          /*
-            txtArea.appendText(message+"\n");*/
         }
 
     }

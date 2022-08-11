@@ -14,7 +14,7 @@ public class ClientAppInitializer extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("lk/ijse/chatapp/view/ClientLoginForm.fxml"))));
-        primaryStage.setTitle("Chat-App");
+        primaryStage.setTitle("Play Tech Chat");
         primaryStage.show();
     }
 }
