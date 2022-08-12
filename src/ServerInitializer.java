@@ -1,10 +1,10 @@
-package lk.ijse.chatapp.controller;
+import lk.ijse.chatapp.model.ClientHandler;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server {
+public class ServerInitializer {
     static final int PORT=3000;
     private static ServerSocket serverSocket;
 

@@ -1,8 +1,6 @@
 package lk.ijse.chatapp.controller;
 
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,27 +16,22 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import lk.ijse.chatapp.model.Client;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Locale;
-import java.util.regex.Pattern;
 
 public class ClientAppFormController {
     public TextField txtMessageArea;
     public Pane mainContext;
-    public Pane messageAreaContext;
     public Text txtUsername;
-    public TextArea txtArea;
 
     final int PORT = 3000;
     public ScrollPane scrollPane;
     public VBox vboxMessage;
-    private String username;
     private Socket socket;
 
     final FileChooser chooser = new FileChooser();
-
     Client client;
 
 
@@ -47,7 +40,6 @@ public class ClientAppFormController {
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.getStylesheets().add(this.getClass().getResource("../view/assets/style/style.css").toExternalForm());
 
-        this.username = username;
         txtUsername.setText(username);
 
         socket = new Socket("localhost", PORT);

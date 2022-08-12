@@ -1,4 +1,4 @@
-package lk.ijse.chatapp.controller;
+package lk.ijse.chatapp.model;
 
 import java.io.*;
 import java.net.Socket;

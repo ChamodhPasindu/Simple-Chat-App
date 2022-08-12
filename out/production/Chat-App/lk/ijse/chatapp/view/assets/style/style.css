@@ -7,13 +7,6 @@
 .increment-button, .decrement-button {
     -fx-padding: 0 0 0 0;
 }
-/*
-.scroll-bar:vertical .track{
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-background-radius: 0em;
-}
-*/
 
 .scroll-bar:vertical .thumb {
     -fx-background-color: #333333;

@@ -1,4 +1,4 @@
-package lk.ijse.chatapp.controller;
+package lk.ijse.chatapp.model;
 
 import java.io.*;
 import java.net.Socket;
@@ -7,14 +7,12 @@ public class Client {
     private Socket socket;
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
-    private String username;
 
     public Client(Socket socket, String username) {
         try {
             this.socket = socket;
             bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            this.username = username;
         } catch (IOException e) {
             e.printStackTrace();
             closeEveryThing(socket, bufferedWriter, bufferedReader);
