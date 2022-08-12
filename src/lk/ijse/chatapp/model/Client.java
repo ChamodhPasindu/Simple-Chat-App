@@ -8,7 +8,7 @@ public class Client {
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
 
-    public Client(Socket socket, String username) {
+    public Client(Socket socket) {
         try {
             this.socket = socket;
             bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));

@@ -5,6 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -20,8 +22,6 @@ import lk.ijse.chatapp.model.Client;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ClientAppFormController {
     public TextField txtMessageArea;
@@ -45,7 +45,7 @@ public class ClientAppFormController {
 
         socket = new Socket("localhost", PORT);
         System.out.println("socket : " + socket);
-        client = new Client(socket, txtUsername.getText());
+        client = new Client(socket);
         client.sendMessage(username);
 
         vboxMessage.heightProperty().addListener((observable, oldValue, newValue) -> scrollPane.setVvalue((Double) newValue));
@@ -72,20 +72,9 @@ public class ClientAppFormController {
         hBox.setPadding(new Insets(1, 5, 1, 10));
         Text text;
         TextFlow textFlow;
-        if (!message.contains(":")) {
-            hBox.setAlignment(Pos.CENTER);
-            text = new Text(message);
-            text.setStyle("-fx-font-weight: bold;-fx-font-size: 10px");
-            text.setFill(Color.color(0.934, 0.945, 0.996));
-            textFlow = new TextFlow(text);
-            textFlow.setStyle("-fx-background-radius: 12px;" +
-                    "-fx-background-color: #2e3b44;" +
-                    "-fx-font-size: 15px;");
-
-
-        } else {
+        if (message.contains("->MSG")) {
             hBox.setAlignment(Pos.CENTER_LEFT);
-            String[] parts = message.split(":");
+            String[] parts = message.split("->MSG");
             String name = parts[0];
             String msg = parts[1];
 
@@ -102,9 +91,35 @@ public class ClientAppFormController {
                     "-fx-background-color: #33434c;" +
                     "-fx-font-size: 15px;");
 
+        }else if (message.contains("->IMG")){
+            String[] parts = message.split("->IMG");
+            String name = parts[0];
+            String file = parts[1];
+
+            hBox.setAlignment(Pos.CENTER_LEFT);
+            hBox.setPadding(new Insets(1, 5, 1, 10));
+
+            Text text1 = new Text(name+"\n\n");
+            text1.setStyle("-fx-font-size: 12px;-fx-font-weight: bold;");
+
+            text1.setFill(Color.rgb(236,139,83));
+            text1.setFill(Color.web("#5386EC"));
+
+            textFlow = new TextFlow(text1,new javafx.scene.image.ImageView(file.toString()));
+            textFlow.setStyle("-fx-background-radius: 12px;" +
+                    "-fx-background-color: #33434c;");
+
+        } else {
+            hBox.setAlignment(Pos.CENTER);
+            text = new Text(message);
+            text.setStyle("-fx-font-weight: bold;-fx-font-size: 10px");
+            text.setFill(Color.color(0.934, 0.945, 0.996));
+            textFlow = new TextFlow(text);
+            textFlow.setStyle("-fx-background-radius: 12px;" +
+                    "-fx-background-color: #2e3b44;" +
+                    "-fx-font-size: 15px;");
+
         }
-
-
         textFlow.setPadding(new Insets(8, 10, 8, 8));
         hBox.getChildren().add(textFlow);
         Platform.runLater(() -> vboxMessage.getChildren().add(hBox));
@@ -123,9 +138,9 @@ public class ClientAppFormController {
 
     public void sendMessage() throws IOException {
         String message = txtMessageArea.getText().trim();
+
         if (!message.isEmpty()) {
 
-            client.sendMessage(txtUsername.getText() + ":" + message);
 
             HBox hBox = new HBox();
             hBox.setAlignment(Pos.CENTER_RIGHT);
@@ -144,16 +159,37 @@ public class ClientAppFormController {
             hBox.getChildren().add(textFlow);
             vboxMessage.getChildren().add(hBox);
 
+            client.sendMessage(txtUsername.getText() + "->MSG" + message);
+
             txtMessageArea.clear();
 
         }
 
     }
 
-    public void choosePhotoOnAction(ActionEvent actionEvent) {
+    public void choosePhotoOnAction() {
         chooser.setTitle("Image Selector");
-        File file = chooser.showOpenDialog(null);
-        System.out.println(file.getAbsolutePath());
+
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.CENTER_RIGHT);
+        hBox.setPadding(new Insets(1, 5, 1, 10));
+
+      try {
+          File file = chooser.showOpenDialog(null);
+          TextFlow textFlow = new TextFlow(new javafx.scene.image.ImageView(file.toURI().toString()));
+          textFlow.setStyle("-fx-background-radius: 12px;" +
+                  "-fx-background-color: #195C4B;");
+
+          textFlow.setPadding(new Insets(8, 10, 8, 8));
+
+          hBox.getChildren().add(textFlow);
+          vboxMessage.getChildren().add(hBox);
+
+          client.sendMessage(txtUsername.getText() + "->IMG" + file.toURI());
+      }catch (NullPointerException e){
+          e.printStackTrace();
+      }
+
     }
 
     public void sendMessageOnMouse(MouseEvent mouseEvent) throws IOException {
