@@ -1,6 +1,6 @@
 
 .scroll-bar:vertical{
-    -fx-background-color:transparent;
+    -fx-background-color:Transparent;
     -fx-pref-width: 10px;
 }
 
@@ -9,6 +9,6 @@
 }
 
 .scroll-bar:vertical .thumb {
-    -fx-background-color: #333333;
+    -fx-background-color: #2A3942;
     -fx-background-radius: 5em;
 }

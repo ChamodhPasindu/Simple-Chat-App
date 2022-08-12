@@ -37,6 +37,11 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
+            <Text fx:id="txtErrorText" fill="#c30909" layoutX="158.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Enter Your Username" visible="false">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Text>
          </children>
       </Pane>
    </children>

@@ -1,27 +1,25 @@
 package lk.ijse.chatapp.controller;
-
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
+import javafx.scene.text.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lk.ijse.chatapp.model.Client;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Objects;
 
 public class ClientAppFormController {
     public TextField txtMessageArea;
@@ -39,7 +37,7 @@ public class ClientAppFormController {
     public void initialize(String username) throws IOException {
 
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.getStylesheets().add(this.getClass().getResource("../view/assets/style/style.css").toExternalForm());
+        scrollPane.getStylesheets().add(Objects.requireNonNull(this.getClass().getResource("../view/assets/style/style.css")).toExternalForm());
 
         txtUsername.setText(username);
 
@@ -47,8 +45,6 @@ public class ClientAppFormController {
         System.out.println("socket : " + socket);
         client = new Client(socket);
         client.sendMessage(username);
-
-        vboxMessage.heightProperty().addListener((observable, oldValue, newValue) -> scrollPane.setVvalue((Double) newValue));
 
         BufferedReader bufferedReader = client.getBufferedReader();
 
@@ -74,38 +70,40 @@ public class ClientAppFormController {
         TextFlow textFlow;
         if (message.contains("->MSG")) {
             hBox.setAlignment(Pos.CENTER_LEFT);
+
             String[] parts = message.split("->MSG");
             String name = parts[0];
             String msg = parts[1];
 
             Text text1 = new Text(name);
-            text1.setStyle("-fx-font-size: 12px;-fx-font-weight: bold;");
+            text1.setStyle("-fx-font-size: 13px;-fx-font-weight: bold;");
             Text text2 = new Text("\n" + msg);
 
-            text1.setFill(Color.rgb(236,139,83));
-            text1.setFill(Color.web("#5386EC"));
+            text1.setFill(Color.web("40b240"));
             text2.setFill(Color.color(0.934, 0.945, 0.996));
 
             textFlow = new TextFlow(text1, text2);
             textFlow.setStyle("-fx-background-radius: 12px;" +
                     "-fx-background-color: #33434c;" +
                     "-fx-font-size: 15px;");
+            textFlow.setLineSpacing(5);
 
-        }else if (message.contains("->IMG")){
+        } else if (message.contains("->IMG")) {
             String[] parts = message.split("->IMG");
             String name = parts[0];
             String file = parts[1];
 
             hBox.setAlignment(Pos.CENTER_LEFT);
-            hBox.setPadding(new Insets(1, 5, 1, 10));
 
-            Text text1 = new Text(name+"\n\n");
-            text1.setStyle("-fx-font-size: 12px;-fx-font-weight: bold;");
+            Text text1 = new Text(name + "\n\n");
+            text1.setStyle("-fx-font-size: 13px;-fx-font-weight: bold;");
 
-            text1.setFill(Color.rgb(236,139,83));
-            text1.setFill(Color.web("#5386EC"));
-
-            textFlow = new TextFlow(text1,new javafx.scene.image.ImageView(file.toString()));
+            text1.setFill(Color.web("#40b240"));
+            ImageView imageView = new ImageView(file);
+            imageView.setFitHeight(250);
+            imageView.setFitWidth(300);
+            imageView.setPreserveRatio(false);
+            textFlow = new TextFlow(text1, imageView);
             textFlow.setStyle("-fx-background-radius: 12px;" +
                     "-fx-background-color: #33434c;");
 
@@ -126,7 +124,7 @@ public class ClientAppFormController {
 
     }
 
-    public void logoutBtnOnAction(ActionEvent actionEvent) throws IOException {
+    public void logoutBtnOnAction() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want logout?", ButtonType.YES, ButtonType.NO);
         alert.showAndWait();
         if (alert.getResult() == ButtonType.YES) {
@@ -136,11 +134,9 @@ public class ClientAppFormController {
         }
     }
 
-    public void sendMessage() throws IOException {
+    public void sendMessage() {
         String message = txtMessageArea.getText().trim();
-
         if (!message.isEmpty()) {
-
 
             HBox hBox = new HBox();
             hBox.setAlignment(Pos.CENTER_RIGHT);
@@ -162,9 +158,7 @@ public class ClientAppFormController {
             client.sendMessage(txtUsername.getText() + "->MSG" + message);
 
             txtMessageArea.clear();
-
         }
-
     }
 
     public void choosePhotoOnAction() {
@@ -174,29 +168,32 @@ public class ClientAppFormController {
         hBox.setAlignment(Pos.CENTER_RIGHT);
         hBox.setPadding(new Insets(1, 5, 1, 10));
 
-      try {
-          File file = chooser.showOpenDialog(null);
-          TextFlow textFlow = new TextFlow(new javafx.scene.image.ImageView(file.toURI().toString()));
-          textFlow.setStyle("-fx-background-radius: 12px;" +
-                  "-fx-background-color: #195C4B;");
+        File file = chooser.showOpenDialog(null);
+        if (file == null) {
+            return;
+        }
+        ImageView imageView = new ImageView(file.toURI().toString());
+        imageView.setFitHeight(250);
+        imageView.setFitWidth(300);
+        imageView.setPreserveRatio(false);
+        TextFlow textFlow = new TextFlow(imageView);
+        textFlow.setStyle("-fx-background-radius: 12px;" +
+                "-fx-background-color: #195C4B;");
 
-          textFlow.setPadding(new Insets(8, 10, 8, 8));
+        textFlow.setPadding(new Insets(8, 10, 8, 8));
 
-          hBox.getChildren().add(textFlow);
-          vboxMessage.getChildren().add(hBox);
+        hBox.getChildren().add(textFlow);
+        vboxMessage.getChildren().add(hBox);
 
-          client.sendMessage(txtUsername.getText() + "->IMG" + file.toURI());
-      }catch (NullPointerException e){
-          e.printStackTrace();
-      }
+        client.sendMessage(txtUsername.getText() + "->IMG" + file.toURI());
 
     }
 
-    public void sendMessageOnMouse(MouseEvent mouseEvent) throws IOException {
+    public void sendMessageOnMouse() {
         sendMessage();
     }
 
-    public void sendMessageOnKey(KeyEvent keyEvent) throws IOException {
+    public void sendMessageOnKey(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ENTER) {
             sendMessage();
         }

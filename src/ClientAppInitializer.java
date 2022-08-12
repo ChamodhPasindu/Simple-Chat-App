@@ -17,6 +17,7 @@ public class ClientAppInitializer extends Application {
         primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("lk/ijse/chatapp/view/ClientLoginForm.fxml"))));
         primaryStage.setTitle("Play Tech Chat");
         primaryStage.show();
+        primaryStage.setResizable(false);
         primaryStage.setOnCloseRequest(event -> {
             System.exit(0);
         });

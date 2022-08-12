@@ -31,13 +31,13 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Text fx:id="txtUsername" fill="WHITE" layoutX="293.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="user name" textAlignment="RIGHT" wrappingWidth="139.99365234375">
+            <Text fx:id="txtUsername" fill="WHITE" layoutX="293.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="user name" textAlignment="RIGHT" wrappingWidth="139.99365234375">
                <font>
                   <Font name="Arial Bold" size="15.0" />
                </font>
             </Text>
             <FontAwesomeIconView fill="#00ff40" glyphName="CIRCLE" layoutX="440.0" layoutY="32.0" />
-            <ImageView fitHeight="40.0" fitWidth="42.0" layoutX="11.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" style=" -fx-background-radius: 10">
+            <ImageView fitHeight="38.0" fitWidth="38.0" layoutX="12.0" layoutY="9.0" opacity="0.8" pickOnBounds="true" preserveRatio="true" style=" -fx-background-radius: 10">
                <image>
                   <Image url="@assets/img/logo.png" />
                </image>
@@ -70,9 +70,9 @@
             <Image url="@assets/img/background.png" />
          </image>
       </ImageView>
-      <ScrollPane fx:id="scrollPane" layoutX="16.0" layoutY="55.0" prefHeight="526.0" prefWidth="482.0" style="-fx-background:trasnparent;">
+      <ScrollPane fx:id="scrollPane" layoutX="16.0" layoutY="55.0" prefHeight="526.0" prefWidth="482.0" style="-fx-background: Trasnparent;" stylesheets="@assets/style/style.css">
          <content>
-            <VBox fx:id="vboxMessage" prefHeight="511.0" prefWidth="475.0" spacing="5.0" style="-fx-background-color:trasparent; ">
+            <VBox fx:id="vboxMessage" prefHeight="511.0" prefWidth="475.0" spacing="5.0">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>

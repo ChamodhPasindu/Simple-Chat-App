@@ -35,18 +35,7 @@ public class Client {
     }
 
     public void closeEveryThing(Socket socket, BufferedWriter bufferedWriter, BufferedReader bufferedReader) {
-        try {
-            if (bufferedReader != null) {
-                bufferedReader.close();
-            }
-            if (bufferedWriter != null) {
-                bufferedWriter.close();
-            }
-            if (socket != null) {
-                socket.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ClientHandler.closeClientConnection(socket, bufferedReader, bufferedWriter);
     }
+
 }

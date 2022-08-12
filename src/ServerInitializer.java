@@ -19,7 +19,7 @@ public class ServerInitializer {
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         try{
             serverSocket=new ServerSocket(PORT);
             System.out.println(serverSocket);
@@ -37,6 +37,4 @@ public class ServerInitializer {
             closeServerSocket();
         }
     }
-
-
 }
