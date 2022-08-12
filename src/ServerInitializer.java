@@ -7,6 +7,7 @@ import java.net.Socket;
 public class ServerInitializer {
     static final int PORT=3000;
     private static ServerSocket serverSocket;
+    static ClientHandler clientHandler;
 
     public static void closeServerSocket(){
         try{
@@ -25,7 +26,7 @@ public class ServerInitializer {
             while (!serverSocket.isClosed()){
                 Socket socket=serverSocket.accept();
                 System.out.println("A new client has connected");
-                ClientHandler clientHandler=new ClientHandler(socket);
+                clientHandler=new ClientHandler(socket);
 
                 Thread thread=new Thread(clientHandler);
                 thread.start();

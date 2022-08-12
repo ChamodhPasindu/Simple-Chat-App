@@ -10,34 +10,34 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="loginContext" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.chatapp.controller.ClientLoginFormController">
+<AnchorPane fx:id="loginContext" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #202C33;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.chatapp.controller.ClientLoginFormController">
    <children>
-      <Pane layoutX="12.0" layoutY="14.0" prefHeight="372.0" prefWidth="575.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 15px;">
+      <Pane layoutX="12.0" layoutY="12.0" prefHeight="372.0" prefWidth="575.0" style="-fx-background-color: #222e35; -fx-background-radius: 15px;">
          <children>
-            <Text layoutX="112.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hey,Lets Chat With Team Mates" wrappingWidth="351.7294921875">
+            <Text fill="WHITE" layoutX="112.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hey,Lets Chat With Team Mates" wrappingWidth="351.7294921875">
                <font>
                   <Font name="Ubuntu Bold" size="23.0" />
                </font>
             </Text>
             <ImageView fitHeight="115.0" fitWidth="134.0" layoutX="221.0" layoutY="119.0" pickOnBounds="true">
                <image>
-                  <Image url="@assets/img/login-user.png" />
+                  <Image url="@assets/img/user.png" />
                </image>
             </ImageView>
+            <TextField fx:id="txtUsername" focusTraversable="false" layoutX="152.0" layoutY="282.0" prefHeight="35.0" prefWidth="180.0" promptText="User Name" style="-fx-background-radius: 10px; -fx-background-color: #2A3942; -fx-text-fill: white;">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField>
+            <Button layoutX="345.0" layoutY="282.0" mnemonicParsing="false" onAction="#loginBtnOnAction" prefHeight="32.0" prefWidth="80.0" style="-fx-background-color: #195C4B; -fx-background-radius: 10px;" text="Login" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
          </children>
       </Pane>
-      <TextField fx:id="txtUsername" focusTraversable="false" layoutX="175.0" layoutY="291.0" prefHeight="40.0" prefWidth="184.0" promptText="User Name">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </TextField>
-      <Button layoutX="368.0" layoutY="291.0" mnemonicParsing="false" onAction="#loginBtnOnAction" prefHeight="40.0" style="-fx-background-color: black;" text="Login" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
    </children>
 </AnchorPane>
