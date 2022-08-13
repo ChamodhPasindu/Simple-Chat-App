@@ -1,5 +1,7 @@
 package lk.ijse.chatapp.controller;
+import com.vdurmont.emoji.EmojiParser;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -29,6 +31,27 @@ public class ClientAppFormController {
     final int PORT = 3000;
     public ScrollPane scrollPane;
     public VBox vboxMessage;
+    public Pane emojiAreaContext;
+    public ImageView emjGrind;
+    public ImageView emjSmile;
+    public ImageView emjWink;
+    public ImageView emjSmirk;
+    public ImageView emjYum;
+    public ImageView emjStuck_out_tongue_closed_eyes;
+    public ImageView emjJoy;
+    public ImageView emjBlush;
+    public ImageView emjKissing_heart;
+    public ImageView emjHeart_eyes;
+    public ImageView emjSunglasses;
+    public ImageView emjFlushed;
+    public ImageView emjOpen_mouth;
+    public ImageView emjAnguished;
+    public ImageView emjScream;
+    public ImageView emjSob;
+    public ImageView emjExpressionless;
+    public ImageView emjSleeping;
+    public ImageView emjConfounded;
+    public ImageView emjAngry;
     private Socket socket;
 
     final FileChooser chooser = new FileChooser();
@@ -48,7 +71,6 @@ public class ClientAppFormController {
 
         BufferedReader bufferedReader = client.getBufferedReader();
 
-
         new Thread(() -> {
             String msgFromGroupChat;
             while (socket.isConnected()) {
@@ -61,6 +83,88 @@ public class ClientAppFormController {
                 }
             }
         }).start();
+
+
+        emjGrind.setOnMouseClicked(event -> {
+            String text = txtMessageArea.getText();
+            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":grin:"));
+        });
+        emjSmile.setOnMouseClicked(event -> {
+            String text = txtMessageArea.getText();
+            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":smile:"));
+        });
+        emjWink.setOnMouseClicked(event -> {
+            String text = txtMessageArea.getText();
+            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":wink:"));
+        });
+        emjSmirk.setOnMouseClicked(event -> {
+            String text = txtMessageArea.getText();
+            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":smirk:"));
+        });
+        emjYum.setOnMouseClicked(event -> {
+            String text = txtMessageArea.getText();
+            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":yum:"));
+        });
+        emjStuck_out_tongue_closed_eyes.setOnMouseClicked(event -> {
+            String text = txtMessageArea.getText();
+            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":stuck_out_tongue_closed_eyes:"));
+        });
+        emjJoy.setOnMouseClicked(event -> {
+            String text = txtMessageArea.getText();
+            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":joy:"));
+        });
+        emjBlush.setOnMouseClicked(event -> {
+            String text = txtMessageArea.getText();
+            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":blush:"));
+        });
+        emjKissing_heart.setOnMouseClicked(event -> {
+            String text = txtMessageArea.getText();
+            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":kissing_heart:"));
+        });
+        emjHeart_eyes.setOnMouseClicked(event -> {
+            String text = txtMessageArea.getText();
+            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":heart_eyes:"));
+        });
+        emjSunglasses.setOnMouseClicked(event -> {
+            String text = txtMessageArea.getText();
+            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":sunglasses:"));
+        });
+        emjFlushed.setOnMouseClicked(event -> {
+            String text = txtMessageArea.getText();
+            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":flushed:"));
+        });
+        emjOpen_mouth.setOnMouseClicked(event -> {
+            String text = txtMessageArea.getText();
+            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":open_mouth:"));
+        });
+        emjAnguished.setOnMouseClicked(event -> {
+            String text = txtMessageArea.getText();
+            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":anguished:"));
+        });
+        emjScream.setOnMouseClicked(event -> {
+            String text = txtMessageArea.getText();
+            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":scream:"));
+        });
+        emjSob.setOnMouseClicked(event -> {
+            String text = txtMessageArea.getText();
+            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":sob:"));
+        });
+        emjExpressionless.setOnMouseClicked(event -> {
+            String text = txtMessageArea.getText();
+            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":expressionless:"));
+        });
+        emjSleeping.setOnMouseClicked(event -> {
+            String text = txtMessageArea.getText();
+            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":sleeping:"));
+        });
+        emjConfounded.setOnMouseClicked(event -> {
+            String text = txtMessageArea.getText();
+            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":confounded:"));
+        });
+        emjAngry.setOnMouseClicked(event -> {
+            String text = txtMessageArea.getText();
+            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":angry:"));
+        });
     }
 
     private void setMsgToTextArea(String message) {
@@ -111,7 +215,7 @@ public class ClientAppFormController {
             hBox.setAlignment(Pos.CENTER);
             text = new Text(message);
             text.setStyle("-fx-font-weight: bold;-fx-font-size: 10px");
-            text.setFill(Color.color(0.934, 0.945, 0.996));
+            text.setFill(Color.web("#aaa9a9"));
             textFlow = new TextFlow(text);
             textFlow.setStyle("-fx-background-radius: 12px;" +
                     "-fx-background-color: #2e3b44;" +
@@ -137,25 +241,26 @@ public class ClientAppFormController {
     public void sendMessage() {
         String message = txtMessageArea.getText().trim();
         if (!message.isEmpty()) {
+            String parse = EmojiParser.parseToUnicode(message);
 
             HBox hBox = new HBox();
             hBox.setAlignment(Pos.CENTER_RIGHT);
             hBox.setPadding(new Insets(1, 5, 1, 10));
 
-            Text text = new Text(message);
+            Text text = new Text(parse);
             TextFlow textFlow = new TextFlow(text);
 
             textFlow.setStyle("-fx-background-radius: 12px;" +
                     "-fx-background-color: #195C4B;" +
-                    "-fx-font-size: 15px");
+                    "-fx-font-size: 15px" +
+                    "-fx-font-family OpenSansEmoji;");
 
             textFlow.setPadding(new Insets(8, 10, 8, 8));
             text.setFill(Color.color(0.934, 0.945, 0.996));
 
             hBox.getChildren().add(textFlow);
             vboxMessage.getChildren().add(hBox);
-
-            client.sendMessage(txtUsername.getText() + "->MSG" + message);
+            client.sendMessage(txtUsername.getText() + "->MSG" + parse);
 
             txtMessageArea.clear();
         }
@@ -199,4 +304,15 @@ public class ClientAppFormController {
         }
     }
 
+    public void emojiBtnOnAction() {
+        if (emojiAreaContext.isVisible()){
+            scrollPane.setPrefHeight(530);
+            vboxMessage.setPrefHeight(525);
+            emojiAreaContext.setVisible(false);
+        }else {
+            scrollPane.setPrefHeight(445);
+            vboxMessage.setPrefHeight(440);
+            emojiAreaContext.setVisible(true);
+        }
+    }
 }

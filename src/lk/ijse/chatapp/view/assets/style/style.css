@@ -1,4 +1,11 @@
+@font-face {
+    font-family: 'OpenSansEmoji';
+    src: url('OpenSansEmoji.ttf');
+}
 
+.text-field {
+    -fx-font-family: OpenSansEmoji;
+}
 .scroll-bar:vertical{
     -fx-background-color:Transparent;
     -fx-pref-width: 10px;
