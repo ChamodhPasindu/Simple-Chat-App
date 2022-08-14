@@ -38,7 +38,7 @@ public class ClientLoginFormController {
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("../view/ClientAppForm.fxml"));
         Parent parent=loader.load();
         ClientAppFormController controller = loader.getController();
-        controller.initialize(txtUsername.getText());
+        controller.initialize(txtUsername.getText().trim());
         Stage window = (Stage) loginContext.getScene().getWindow();
         window.setScene(new Scene(parent));
         txtUsername.clear();

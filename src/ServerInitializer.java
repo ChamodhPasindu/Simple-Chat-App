@@ -37,4 +37,8 @@ public class ServerInitializer {
             closeServerSocket();
         }
     }
+
+    public static ClientHandler getClientHandler() {
+        return clientHandler;
+    }
 }

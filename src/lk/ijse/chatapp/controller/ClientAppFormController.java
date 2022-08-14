@@ -1,9 +1,10 @@
 package lk.ijse.chatapp.controller;
+
 import com.vdurmont.emoji.EmojiParser;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -21,12 +22,12 @@ import lk.ijse.chatapp.model.Client;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Locale;
 import java.util.Objects;
 
 public class ClientAppFormController {
     public TextField txtMessageArea;
     public Pane mainContext;
-    public Text txtUsername;
 
     final int PORT = 3000;
     public ScrollPane scrollPane;
@@ -52,22 +53,32 @@ public class ClientAppFormController {
     public ImageView emjSleeping;
     public ImageView emjConfounded;
     public ImageView emjAngry;
+    public Pane activeUserContext;
+    public VBox vboxActiveUser;
+    public ScrollPane activeUserScrollPane;
+    public Text txtActiveUser;
     private Socket socket;
 
     final FileChooser chooser = new FileChooser();
     Client client;
 
-    public void initialize(String username) throws IOException {
+    String username;
+    int activeUserCount=0;
 
+    public void initialize(String username) throws IOException {
+        this.username=username;
+
+        activeUserScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.getStylesheets().add(Objects.requireNonNull(this.getClass().getResource("../view/assets/style/style.css")).toExternalForm());
 
-        txtUsername.setText(username);
 
         socket = new Socket("localhost", PORT);
         System.out.println("socket : " + socket);
         client = new Client(socket);
         client.sendMessage(username);
+
+        setActiveUsers(username+"(you)");
 
         BufferedReader bufferedReader = client.getBufferedReader();
 
@@ -87,83 +98,83 @@ public class ClientAppFormController {
 
         emjGrind.setOnMouseClicked(event -> {
             String text = txtMessageArea.getText();
-            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":grin:"));
+            txtMessageArea.setText(text + EmojiParser.parseToUnicode(":grin:"));
         });
         emjSmile.setOnMouseClicked(event -> {
             String text = txtMessageArea.getText();
-            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":smile:"));
+            txtMessageArea.setText(text + EmojiParser.parseToUnicode(":smile:"));
         });
         emjWink.setOnMouseClicked(event -> {
             String text = txtMessageArea.getText();
-            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":wink:"));
+            txtMessageArea.setText(text + EmojiParser.parseToUnicode(":wink:"));
         });
         emjSmirk.setOnMouseClicked(event -> {
             String text = txtMessageArea.getText();
-            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":smirk:"));
+            txtMessageArea.setText(text + EmojiParser.parseToUnicode(":smirk:"));
         });
         emjYum.setOnMouseClicked(event -> {
             String text = txtMessageArea.getText();
-            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":yum:"));
+            txtMessageArea.setText(text + EmojiParser.parseToUnicode(":yum:"));
         });
         emjStuck_out_tongue_closed_eyes.setOnMouseClicked(event -> {
             String text = txtMessageArea.getText();
-            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":stuck_out_tongue_closed_eyes:"));
+            txtMessageArea.setText(text + EmojiParser.parseToUnicode(":stuck_out_tongue_closed_eyes:"));
         });
         emjJoy.setOnMouseClicked(event -> {
             String text = txtMessageArea.getText();
-            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":joy:"));
+            txtMessageArea.setText(text + EmojiParser.parseToUnicode(":joy:"));
         });
         emjBlush.setOnMouseClicked(event -> {
             String text = txtMessageArea.getText();
-            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":blush:"));
+            txtMessageArea.setText(text + EmojiParser.parseToUnicode(":blush:"));
         });
         emjKissing_heart.setOnMouseClicked(event -> {
             String text = txtMessageArea.getText();
-            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":kissing_heart:"));
+            txtMessageArea.setText(text + EmojiParser.parseToUnicode(":kissing_heart:"));
         });
         emjHeart_eyes.setOnMouseClicked(event -> {
             String text = txtMessageArea.getText();
-            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":heart_eyes:"));
+            txtMessageArea.setText(text + EmojiParser.parseToUnicode(":heart_eyes:"));
         });
         emjSunglasses.setOnMouseClicked(event -> {
             String text = txtMessageArea.getText();
-            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":sunglasses:"));
+            txtMessageArea.setText(text + EmojiParser.parseToUnicode(":sunglasses:"));
         });
         emjFlushed.setOnMouseClicked(event -> {
             String text = txtMessageArea.getText();
-            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":flushed:"));
+            txtMessageArea.setText(text + EmojiParser.parseToUnicode(":flushed:"));
         });
         emjOpen_mouth.setOnMouseClicked(event -> {
             String text = txtMessageArea.getText();
-            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":open_mouth:"));
+            txtMessageArea.setText(text + EmojiParser.parseToUnicode(":open_mouth:"));
         });
         emjAnguished.setOnMouseClicked(event -> {
             String text = txtMessageArea.getText();
-            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":anguished:"));
+            txtMessageArea.setText(text + EmojiParser.parseToUnicode(":anguished:"));
         });
         emjScream.setOnMouseClicked(event -> {
             String text = txtMessageArea.getText();
-            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":scream:"));
+            txtMessageArea.setText(text + EmojiParser.parseToUnicode(":scream:"));
         });
         emjSob.setOnMouseClicked(event -> {
             String text = txtMessageArea.getText();
-            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":sob:"));
+            txtMessageArea.setText(text + EmojiParser.parseToUnicode(":sob:"));
         });
         emjExpressionless.setOnMouseClicked(event -> {
             String text = txtMessageArea.getText();
-            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":expressionless:"));
+            txtMessageArea.setText(text + EmojiParser.parseToUnicode(":expressionless:"));
         });
         emjSleeping.setOnMouseClicked(event -> {
             String text = txtMessageArea.getText();
-            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":sleeping:"));
+            txtMessageArea.setText(text + EmojiParser.parseToUnicode(":sleeping:"));
         });
         emjConfounded.setOnMouseClicked(event -> {
             String text = txtMessageArea.getText();
-            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":confounded:"));
+            txtMessageArea.setText(text + EmojiParser.parseToUnicode(":confounded:"));
         });
         emjAngry.setOnMouseClicked(event -> {
             String text = txtMessageArea.getText();
-            txtMessageArea.setText(text+EmojiParser.parseToUnicode(":angry:"));
+            txtMessageArea.setText(text + EmojiParser.parseToUnicode(":angry:"));
         });
     }
 
@@ -193,6 +204,7 @@ public class ClientAppFormController {
             textFlow.setLineSpacing(5);
 
         } else if (message.contains("->IMG")) {
+
             String[] parts = message.split("->IMG");
             String name = parts[0];
             String file = parts[1];
@@ -212,8 +224,24 @@ public class ClientAppFormController {
                     "-fx-background-color: #33434c;");
 
         } else {
+
+            if (message.contains("-")){
+                String[] split = message.split("-");
+                String name = split[0];
+                setActiveUsers(name.trim());
+                return;
+            }else if (message.contains("joined")){
+                String[] split = message.split("has");
+                String name = split[0];
+                setActiveUsers(name.trim());
+            }else if (message.contains("left")){
+                String[] split = message.split("has");
+                String name = split[0];
+                setInActiveUsers(name.trim());
+            }
+
             hBox.setAlignment(Pos.CENTER);
-            text = new Text(message);
+            text = new Text(message.toUpperCase(Locale.ROOT));
             text.setStyle("-fx-font-weight: bold;-fx-font-size: 10px");
             text.setFill(Color.web("#aaa9a9"));
             textFlow = new TextFlow(text);
@@ -260,7 +288,7 @@ public class ClientAppFormController {
 
             hBox.getChildren().add(textFlow);
             vboxMessage.getChildren().add(hBox);
-            client.sendMessage(txtUsername.getText() + "->MSG" + parse);
+            client.sendMessage(username + "->MSG" + parse);
 
             txtMessageArea.clear();
         }
@@ -290,7 +318,7 @@ public class ClientAppFormController {
         hBox.getChildren().add(textFlow);
         vboxMessage.getChildren().add(hBox);
 
-        client.sendMessage(txtUsername.getText() + "->IMG" + file.toURI());
+        client.sendMessage(username + "->IMG" + file.toURI());
 
     }
 
@@ -305,14 +333,56 @@ public class ClientAppFormController {
     }
 
     public void emojiBtnOnAction() {
-        if (emojiAreaContext.isVisible()){
-            scrollPane.setPrefHeight(530);
-            vboxMessage.setPrefHeight(525);
+        if (emojiAreaContext.isVisible()) {
             emojiAreaContext.setVisible(false);
-        }else {
-            scrollPane.setPrefHeight(445);
-            vboxMessage.setPrefHeight(440);
+            emojiAreaContext.setManaged(false);
+        } else {
             emojiAreaContext.setVisible(true);
+            emojiAreaContext.setManaged(true);
+        }
+    }
+
+    public void showActivesOnAction() {
+        if (activeUserContext.isVisible()) {
+            activeUserContext.setVisible(false);
+            activeUserContext.setManaged(false);
+
+        } else {
+            activeUserContext.setVisible(true);
+            activeUserContext.setManaged(true);
+        }
+    }
+
+    private void setActiveUsers(String name) {
+            HBox hBox = new HBox();
+            hBox.setPadding(new Insets(0, 0, 5, 0));
+            hBox.setAlignment(Pos.CENTER_LEFT);
+
+            Text text = new Text(name);
+            text.setStyle("-fx-background-radius: 12px;" +
+                    "-fx-font-size: 15px");
+        text.setFill(Color.web("white"));
+
+        hBox.getChildren().add(text);
+        Platform.runLater(() -> {
+            vboxActiveUser.getChildren().add(hBox);
+            txtActiveUser.setText(" ("+(activeUserCount+=1) +")");
+        });
+    }
+
+    private void setInActiveUsers(String name) {
+        for (Node hBox : vboxActiveUser.getChildren()) {
+           if (hBox instanceof HBox){
+               for (Node text:((HBox) hBox).getChildren()){
+                   if (text instanceof Text){
+                       if (((Text) text).getText().equals(name)){
+                           Platform.runLater(() ->{   vboxActiveUser.getChildren().remove(hBox);
+                                       txtActiveUser.setText("("+(activeUserCount-=1) +")");}
+                                );
+                       }
+                   }
+               }
+           }
         }
     }
 }
