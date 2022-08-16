@@ -1,0 +1,32 @@
+.myDialog{
+    -fx-background-color: #222e35;
+}
+.myDialog > *.button-bar > *.container{
+    -fx-background-color: #202C33;
+}
+.myDialog > *.button-bar > *.container > .button{
+    -fx-background-color: transparent;
+    -fx-border-radius:10px;
+    -fx-border-color:#075E54;
+    -fx-border-width: 2px;
+    -fx-text-fill:#075E54;
+    -fx-font-weight: bold;
+}
+.myDialog > *.button-bar > *.container > .button:hover{
+    -fx-border-color: #6d72b6;
+    -fx-border-width: 2px;
+    -fx-text-fill:#6d72b6;
+    -fx-font-weight: bold;
+}
+
+.myDialog > *.label.content{
+    -fx-font-size: 14px;
+}
+.myDialog *.header-panel{
+    -fx-background-color: #075E54;
+}
+.myDialog *.header-panel > *.label{
+    -fx-font-size: 15px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}

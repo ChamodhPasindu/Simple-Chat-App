@@ -10,39 +10,43 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="loginContext" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #202C33;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.chatapp.controller.ClientLoginFormController">
-   <children>
-      <Pane layoutX="12.0" layoutY="12.0" prefHeight="372.0" prefWidth="575.0" style="-fx-background-color: #222e35; -fx-background-radius: 15px;">
-         <children>
-            <Text fill="WHITE" layoutX="112.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hey,Lets Chat With Team Mates" wrappingWidth="351.7294921875">
-               <font>
-                  <Font name="Ubuntu Bold" size="23.0" />
-               </font>
-            </Text>
-            <ImageView fitHeight="115.0" fitWidth="134.0" layoutX="221.0" layoutY="119.0" pickOnBounds="true">
-               <image>
-                  <Image url="@assets/img/user.png" />
-               </image>
-            </ImageView>
-            <TextField fx:id="txtUsername" focusTraversable="false" layoutX="152.0" layoutY="282.0" prefHeight="35.0" prefWidth="180.0" promptText="User Name" style="-fx-background-radius: 10px; -fx-background-color: #2A3942; -fx-text-fill: white;">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </TextField>
-            <Button layoutX="345.0" layoutY="282.0" mnemonicParsing="false" onAction="#loginBtnOnAction" prefHeight="32.0" prefWidth="80.0" style="-fx-background-color: #195C4B; -fx-background-radius: 10px;" text="Login" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Text fx:id="txtErrorText" fill="#c30909" layoutX="158.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Enter Your Username" visible="false">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </Text>
-         </children>
-      </Pane>
-   </children>
+<AnchorPane fx:id="loginContext" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #202C33;"
+            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="lk.ijse.chatapp.controller.ClientLoginFormController">
+    <Pane layoutX="12.0" layoutY="12.0" prefHeight="372.0" prefWidth="575.0"
+          style="-fx-background-color: #222e35; -fx-background-radius: 15px;">
+        <Text fill="WHITE" layoutX="112.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0"
+              text="Hey,Lets Chat With Team Mates" wrappingWidth="351.7294921875">
+            <font>
+                <Font name="Ubuntu Bold" size="23.0"/>
+            </font>
+        </Text>
+        <ImageView fitHeight="115.0" fitWidth="134.0" layoutX="221.0" layoutY="119.0" pickOnBounds="true">
+            <Image url="@assets/img/user.png"/>
+        </ImageView>
+        <TextField fx:id="txtUsername" focusTraversable="false" layoutX="152.0" layoutY="282.0"
+                   prefHeight="35.0" prefWidth="180.0" promptText="User Name"
+                   style="-fx-background-radius: 10px; -fx-background-color: #2A3942; -fx-text-fill: white;">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </TextField>
+        <Button layoutX="345.0" layoutY="282.0" mnemonicParsing="false" onAction="#loginBtnOnAction"
+                prefHeight="32.0" prefWidth="80.0"
+                style="-fx-background-color: #195C4B; -fx-background-radius: 10px;" text="Login"
+                textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="17.0"/>
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        </Button>
+        <Text fx:id="txtErrorText" fill="#c30909" layoutX="158.0" layoutY="331.0" strokeType="OUTSIDE"
+              strokeWidth="0.0" text="Please Enter Your Username" visible="false">
+            <font>
+                <Font size="10.0"/>
+            </font>
+        </Text>
+    </Pane>
 </AnchorPane>

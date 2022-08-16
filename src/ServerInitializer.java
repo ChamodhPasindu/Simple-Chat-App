@@ -5,13 +5,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class ServerInitializer {
-    static final int PORT=3000;
+    static final int PORT = 3000;
     private static ServerSocket serverSocket;
     static ClientHandler clientHandler;
 
-    public static void closeServerSocket(){
-        try{
-            if (serverSocket!=null){
+    public static void closeServerSocket() {
+        try {
+            if (serverSocket != null) {
                 serverSocket.close();
             }
         } catch (IOException e) {
@@ -20,15 +20,15 @@ public class ServerInitializer {
     }
 
     public static void main(String[] args) {
-        try{
-            serverSocket=new ServerSocket(PORT);
+        try {
+            serverSocket = new ServerSocket(PORT);
             System.out.println(serverSocket);
-            while (!serverSocket.isClosed()){
-                Socket socket=serverSocket.accept();
+            while (!serverSocket.isClosed()) {
+                Socket socket = serverSocket.accept();
                 System.out.println("A new client has connected");
-                clientHandler=new ClientHandler(socket);
+                clientHandler = new ClientHandler(socket);
 
-                Thread thread=new Thread(clientHandler);
+                Thread thread = new Thread(clientHandler);
                 thread.start();
             }
 
@@ -38,7 +38,4 @@ public class ServerInitializer {
         }
     }
 
-    public static ClientHandler getClientHandler() {
-        return clientHandler;
-    }
 }

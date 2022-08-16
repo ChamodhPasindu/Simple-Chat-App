@@ -15,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -63,10 +64,10 @@ public class ClientAppFormController {
     Client client;
 
     String username;
-    int activeUserCount=0;
+    int activeUserCount = 0;
 
     public void initialize(String username) throws IOException {
-        this.username=username;
+        this.username = username;
 
         activeUserScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -78,7 +79,7 @@ public class ClientAppFormController {
         client = new Client(socket);
         client.sendMessage(username);
 
-        setActiveUsers(username+"(you)");
+        setActiveUsers(username + "(you)");
 
         BufferedReader bufferedReader = client.getBufferedReader();
 
@@ -225,16 +226,16 @@ public class ClientAppFormController {
 
         } else {
 
-            if (message.contains("-")){
+            if (message.contains("-")) {
                 String[] split = message.split("-");
                 String name = split[0];
                 setActiveUsers(name.trim());
                 return;
-            }else if (message.contains("joined")){
+            } else if (message.contains("joined")) {
                 String[] split = message.split("has");
                 String name = split[0];
                 setActiveUsers(name.trim());
-            }else if (message.contains("left")){
+            } else if (message.contains("left")) {
                 String[] split = message.split("has");
                 String name = split[0];
                 setInActiveUsers(name.trim());
@@ -257,7 +258,13 @@ public class ClientAppFormController {
     }
 
     public void logoutBtnOnAction() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want logout?", ButtonType.YES, ButtonType.NO);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.YES, ButtonType.NO);
+        alert.setHeaderText("Do You Want Logout");
+                DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+                getClass().getResource("../view/assets/style/myDialog.css").toExternalForm());
+        dialogPane.getStyleClass().add("myDialog");
+
         alert.showAndWait();
         if (alert.getResult() == ButtonType.YES) {
             Stage stage = (Stage) mainContext.getScene().getWindow();
@@ -354,35 +361,46 @@ public class ClientAppFormController {
     }
 
     private void setActiveUsers(String name) {
-            HBox hBox = new HBox();
-            hBox.setPadding(new Insets(0, 0, 5, 0));
-            hBox.setAlignment(Pos.CENTER_LEFT);
+        HBox hBox = new HBox();
+        hBox.setPadding(new Insets(0, 0, 5, 0));
+        hBox.setAlignment(Pos.CENTER_LEFT);
 
-            Text text = new Text(name);
-            text.setStyle("-fx-background-radius: 12px;" +
-                    "-fx-font-size: 15px");
+        Circle circle = new Circle();
+        circle.setRadius(5);
+        circle.setFill(Color.web("#1eff46"));
+        Text text = new Text(" " + name);
+        text.setStyle("-fx-background-radius: 12px;" +
+                "-fx-font-size: 15px");
+        TextFlow textFlow = new TextFlow(circle, text);
+
         text.setFill(Color.web("white"));
 
-        hBox.getChildren().add(text);
+        hBox.getChildren().add(textFlow);
         Platform.runLater(() -> {
             vboxActiveUser.getChildren().add(hBox);
-            txtActiveUser.setText(" ("+(activeUserCount+=1) +")");
+            txtActiveUser.setText(" (" + (activeUserCount += 1) + ")");
         });
     }
 
     private void setInActiveUsers(String name) {
         for (Node hBox : vboxActiveUser.getChildren()) {
-           if (hBox instanceof HBox){
-               for (Node text:((HBox) hBox).getChildren()){
-                   if (text instanceof Text){
-                       if (((Text) text).getText().equals(name)){
-                           Platform.runLater(() ->{   vboxActiveUser.getChildren().remove(hBox);
-                                       txtActiveUser.setText("("+(activeUserCount-=1) +")");}
-                                );
-                       }
-                   }
-               }
-           }
+            if (hBox instanceof HBox) {
+                for (Node textFlow : ((HBox) hBox).getChildren()) {
+                    if (textFlow instanceof TextFlow) {
+                        for (Node text : ((TextFlow) textFlow).getChildren()) {
+                            if (text instanceof Text) {
+                                if (((Text) text).getText().trim().equals(name)) {
+                                    Platform.runLater(() -> {
+                                                vboxActiveUser.getChildren().remove(hBox);
+                                                txtActiveUser.setText("(" + (activeUserCount -= 1) + ")");
+                                            }
+                                    );
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

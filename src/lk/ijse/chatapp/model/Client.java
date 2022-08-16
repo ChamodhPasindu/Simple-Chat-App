@@ -19,7 +19,7 @@ public class Client {
         }
     }
 
-    public void sendMessage( String message) {
+    public void sendMessage(String message) {
         try {
             bufferedWriter.write(message);
             bufferedWriter.newLine();
@@ -30,7 +30,7 @@ public class Client {
         }
     }
 
-    public BufferedReader getBufferedReader(){
+    public BufferedReader getBufferedReader() {
         return bufferedReader;
     }
 

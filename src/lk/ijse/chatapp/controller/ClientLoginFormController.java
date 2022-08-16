@@ -16,9 +16,9 @@ public class ClientLoginFormController {
     public AnchorPane loginContext;
     public Text txtErrorText;
 
-    public void initialize(){
+    public void initialize() {
         txtUsername.setOnKeyPressed(event -> {
-            if (event.getCode()== KeyCode.ENTER){
+            if (event.getCode() == KeyCode.ENTER) {
                 try {
                     loginBtnOnAction();
                 } catch (IOException e) {
@@ -29,19 +29,19 @@ public class ClientLoginFormController {
     }
 
     public void loginBtnOnAction() throws IOException {
-        if(txtUsername.getText().trim().isEmpty()){
+        if (txtUsername.getText().trim().isEmpty()) {
             txtErrorText.setVisible(true);
             txtUsername.setStyle("-fx-border-color: #6b0000;-fx-border-radius: 10px;-fx-background-radius: 10px; -fx-background-color: #2A3942; -fx-text-fill: white;");
             return;
         }
 
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("../view/ClientAppForm.fxml"));
-        Parent parent=loader.load();
+        Parent parent = loader.load();
         ClientAppFormController controller = loader.getController();
         controller.initialize(txtUsername.getText().trim());
         Stage window = (Stage) loginContext.getScene().getWindow();
         window.setScene(new Scene(parent));
         txtUsername.clear();
     }
-    
+
 }

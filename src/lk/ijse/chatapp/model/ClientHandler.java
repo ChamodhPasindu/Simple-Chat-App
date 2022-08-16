@@ -3,7 +3,6 @@ package lk.ijse.chatapp.model;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class ClientHandler implements Runnable {
 
@@ -30,9 +29,9 @@ public class ClientHandler implements Runnable {
     }
 
     private void broadCastOnlineClient() {
-        if (clientHandlers.size()==1){
+        if (clientHandlers.size() == 1) {
             try {
-                bufferedWriter.write( "No One Active Now");
+                bufferedWriter.write("No One Active Now");
                 bufferedWriter.newLine();
                 bufferedWriter.flush();
             } catch (IOException e) {
